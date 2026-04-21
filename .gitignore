@@ -1,0 +1,78 @@
+# ----------------------
+# Python / Django
+# ----------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+db.sqlite3
+
+# Virtual Environment
+venv/
+.env/
+.env.*
+
+# Django specific
+*.log
+staticfiles/
+media/
+*.pot
+*.pyc
+
+# Migrations (optional: keep or ignore based on team choice)
+# */migrations/
+# !*/migrations/__init__.py
+
+# ----------------------
+# Node / Vite / React
+# ----------------------
+node_modules/
+dist/
+build/
+.vite/
+vite.svg
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ----------------------
+# Tailwind / PostCSS
+# ----------------------
+.cache/
+*.cache
+
+# ----------------------
+# OS Files
+# ----------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------
+# IDE / Editor
+# ----------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ----------------------
+# Environment / Secrets
+# ----------------------
+.env
+.env.local
+.env.development
+.env.production
+
+# ----------------------
+# Misc
+# ----------------------
+*.pptx
+*.pdf
+*.docx
+
+# Your custom folder (if not needed in repo)
+my-app/
