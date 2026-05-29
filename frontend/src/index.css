@@ -1,10 +1,82 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #1A1A1A;
-  --color-secondary: #FAFAFA;
+  --color-primary: #0f172a;
+  --color-secondary: #f8fafc;
+}
+
+:root {
+  color-scheme: light;
+  --bg: #f3efe7;
+  --bg-alt: #f9f6f1;
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-strong: rgba(255, 255, 255, 0.94);
+  --text: #101828;
+  --text-muted: #5f6b7a;
+  --border: rgba(16, 24, 40, 0.08);
+  --accent: #0f172a;
+  --accent-strong: #111827;
+  --accent-soft: rgba(15, 23, 42, 0.08);
+  --success: #047857;
+  --danger: #b42318;
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #07111f;
+  --bg-alt: #0b1627;
+  --surface: rgba(10, 17, 31, 0.78);
+  --surface-strong: rgba(9, 15, 27, 0.96);
+  --text: #f8fafc;
+  --text-muted: #9ca3af;
+  --border: rgba(148, 163, 184, 0.16);
+  --accent: #e5e7eb;
+  --accent-strong: #f8fafc;
+  --accent-soft: rgba(255, 255, 255, 0.08);
+  --success: #34d399;
+  --danger: #fb7185;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  @apply bg-white text-gray-900 font-sans antialiased;
+  min-height: 100vh;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.45), transparent 28%),
+    radial-gradient(circle at top right, rgba(120, 119, 198, 0.12), transparent 24%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
+  color: var(--text);
+  @apply antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.premium-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(24px);
+}
+
+.premium-panel-strong {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  box-shadow: 0 26px 72px rgba(15, 23, 42, 0.1);
+  backdrop-filter: blur(24px);
+}
+
+.premium-grid {
+  background-image: linear-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
 }

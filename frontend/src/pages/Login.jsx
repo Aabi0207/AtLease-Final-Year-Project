@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { Loader2 } from 'lucide-react';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      await login(username, password);
+      await login(email, password);
       navigate('/');
     } catch (err) {
       if (err.response && err.response.data && err.response.data.error) {
@@ -54,17 +54,17 @@ const Login = () => {
           )}
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="username" className="sr-only">Username</label>
+              <label htmlFor="email" className="sr-only">Email</label>
               <input
-                id="username"
-                name="username"
-                type="text"
-                autoComplete="username"
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-white"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                className="appearance-none rounded-b-lg relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 mb-5 focus:border-blue-500 focus:z-10 sm:text-sm bg-white"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div>
@@ -75,7 +75,7 @@ const Login = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-white"
+                className="appearance-none rounded-t-lg relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-white"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "users",
+    "owner",
+    "customer",
 ]
 
 MIDDLEWARE = [
@@ -120,6 +122,9 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/6.0/ref/settings/#default-auto-field
 
@@ -147,8 +152,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:5173',
 ]
 
-CSRF_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SECURE = not DEBUG
 

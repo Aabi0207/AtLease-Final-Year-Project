@@ -18,3 +18,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             phone_number=validated_data.get('phone_number', '')
         )
         return user
+
+    def validate_email(self, value):
+        if value and User.objects.filter(email__iexact=value).exists():
+            raise serializers.ValidationError('An account with this email already exists.')
+        return value

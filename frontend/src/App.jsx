@@ -1,34 +1,57 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
+import CustomerOnlyRoute from './components/CustomerOnlyRoute';
 import Home from './pages/Home';
-import Login from './pages/Login';
+import RoleLoginPage from './pages/RoleLoginPage';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
+import AddWarehousePage from './pages/AddWarehousePage';
+import Warehouses from './pages/Warehouses';
+import WarehouseDetail from './pages/WarehouseDetail';
+import BookingFlow from './pages/BookingFlow';
+import PaymentFlow from './pages/PaymentFlow';
+import CertificatesPage from './pages/CertificatesPage';
+import CertificatePage from './pages/CertificatePage';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="min-h-screen bg-gray-50 selection:bg-gray-100">
-          <Navbar />
-          <main>
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
+    <ThemeProvider>
+      <AuthProvider>
+        <Router>
+          <div className="min-h-screen text-[var(--text)]">
+            <Navbar />
+            <main className="pt-24">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/certificates" element={<CertificatesPage />} />
+                <Route path="/certificate/:id" element={<CertificatePage />} />
+                <Route path="/login" element={<RoleLoginPage role="customer" />} />
+                <Route path="/login/customer" element={<RoleLoginPage role="customer" />} />
+                <Route path="/login/vendor" element={<RoleLoginPage role="vendor" />} />
+                <Route path="/signup" element={<Signup />} />
 
-              {/* Protected Routes directly rendering Children underneath Outlet */}
-              <Route element={<ProtectedRoute />}>
-                <Route path="/dashboard" element={<Dashboard />} />
-              </Route>
-            </Routes>
-          </main>
-        </div>
-      </Router>
-    </AuthProvider>
+                <Route element={<CustomerOnlyRoute />}>
+                  <Route path="/marketplace" element={<Warehouses />} />
+                  <Route path="/warehouses" element={<Warehouses />} />
+                  <Route path="/warehouses/:id" element={<WarehouseDetail />} />
+                  <Route path="/book/:id" element={<BookingFlow />} />
+                  <Route path="/book/:id/payment" element={<PaymentFlow />} />
+                </Route>
+
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/add-warehouse" element={<AddWarehousePage />} />
+                  <Route path="/edit-warehouse/:id" element={<AddWarehousePage />} />
+                </Route>
+              </Routes>
+            </main>
+          </div>
+        </Router>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

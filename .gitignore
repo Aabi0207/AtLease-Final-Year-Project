@@ -70,9 +70,9 @@ Thumbs.db
 # ----------------------
 # Misc
 # ----------------------
-*.pptx
-*.pdf
-*.docx
+# *.pptx
+# *.pdf
+# *.docx
 
 # Your custom folder (if not needed in repo)
 my-app/

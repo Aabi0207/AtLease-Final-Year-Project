@@ -43,24 +43,43 @@ def login_view(request):
     """
     Log in a user via session authentication.
     """
+    email = request.data.get('email')
     username = request.data.get('username')
     password = request.data.get('password')
+    requested_role = request.data.get('role')
 
-    if not username or not password:
+    if not password or (not email and not username):
         return Response(
-            {"error": "Please provide both username and password."}, 
+            {"error": "Please provide your email and password."}, 
             status=status.HTTP_400_BAD_REQUEST
         )
 
-    user = authenticate(request, username=username, password=password)
+    user = None
+
+    if email:
+        from .models import User
+
+        matched_user = User.objects.filter(email__iexact=email).first()
+        if matched_user is not None:
+            user = authenticate(request, username=matched_user.username, password=password)
+
+    if user is None and username:
+        user = authenticate(request, username=username, password=password)
 
     if user is not None:
+        if requested_role and getattr(user, 'role', '') != requested_role:
+            return Response(
+                {"error": "This account does not match the selected login role."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
         login(request, user)  # Create the user session
         return Response({
             "message": "Login successful.",
             "user": {
                 "id": user.id,
                 "username": user.username,
+                "email": user.email,
                 "role": user.role
             }
         }, status=status.HTTP_200_OK)

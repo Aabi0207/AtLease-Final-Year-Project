@@ -11,17 +11,13 @@ export const AuthProvider = ({ children }) => {
     return cachedUser ? JSON.parse(cachedUser) : null;
   });
 
-  // Setup an Axios interceptor to catch 401s (e.g. Django session expired)
-  // and clear the local storage seamlessly, forcing a redirect by clearing the state.
   useEffect(() => {
-    // Attempt to grab a CSRF cookie on initial mount so we're ready for POSTs
     api.get('/auth/csrf/').catch(() => {});
 
     const resInterceptor = api.interceptors.response.use(
       response => response,
       error => {
         if (error.response && error.response.status === 401) {
-          // If the backend session says we are unauthorized, purge local cache cleanly
           setUser(null);
           localStorage.removeItem('user');
         }
@@ -34,8 +30,14 @@ export const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  const login = async (username, password) => {
-    const res = await api.post('/auth/login/', { username, password });
+  const login = async (email, password, role) => {
+    const payload = { email, password };
+
+    if (role) {
+      payload.role = role;
+    }
+
+    const res = await api.post('/auth/login/', payload);
     if (res.data && res.data.user) {
       setUser(res.data.user);
       localStorage.setItem('user', JSON.stringify(res.data.user));
@@ -46,8 +48,6 @@ export const AuthProvider = ({ children }) => {
   const register = async (username, email, password, role) => {
     const res = await api.post('/auth/register/', { username, email, password, role });
     if (res.data && res.data.user) {
-      // Typically, people may require explicit login but let's auto-login if the backend did not,
-      // Wait, let's just ask them to login manually or auto-login by calling login
       return res.data;
     }
   };
