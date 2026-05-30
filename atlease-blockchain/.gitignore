@@ -1,0 +1,53 @@
+# ===============================
+# Environment variables (CRITICAL)
+# ===============================
+.env
+.env.*
+!.env.example
+.env.example
+
+# ===============================
+# Node.js
+# ===============================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ===============================
+# Hardhat / Blockchain
+# ===============================
+artifacts/
+cache/
+typechain-types/
+coverage/
+coverage.json
+
+# ===============================
+# Build outputs
+# ===============================
+dist/
+bundle/
+
+# ===============================
+# TypeScript
+# ===============================
+*.tsbuildinfo
+
+# ===============================
+# VS Code
+# ===============================
+.vscode/
+!.vscode/extensions.json
+
+# ===============================
+# OS / System files
+# ===============================
+.DS_Store
+Thumbs.db
+
+# ===============================
+# Hardhat temporary files
+# ===============================
+hardhat.config.local.ts
